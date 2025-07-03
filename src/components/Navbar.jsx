@@ -49,30 +49,41 @@ const Navbar = () => {
 
         {/* Buscador centrado */}
         <div className="d-flex justify-content-center align-items-center" style={{ flex: 1 }}>
-          {!searchVisible && (
-            <button
-              className="btn btn-link"
-              onClick={handleSearchClick}
-              aria-label="Buscar por tag"
-              style={{ fontSize: "1.5rem", color: "black" }}
-            >
-              🔍
-            </button>
+          {searchVisible && (
+            <div className="d-flex align-items-center gap-2">
+              <input
+                type="text"
+                ref={inputRef}
+                className="form-control"
+                placeholder="Buscar por tag..."
+                value={searchInput}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                style={{ width: "250px" }}
+              />
+              <button
+                className="btn btn-outline-secondary"
+                onClick={() => setSearchVisible(false)}
+                aria-label="Ocultar buscador"
+              >
+                <i className="bi bi-search" />
+              </button>
+            </div>
           )}
 
-          {searchVisible && (
-            <input
-              type="text"
-              ref={inputRef}
-              className="form-control"
-              placeholder="Buscar por tag..."
-              value={searchInput}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              style={{ width: "250px" }}
-            />
+          {!searchVisible && (
+            <button
+              className="btn btn-outline-secondary"
+              onClick={() => setSearchVisible(true)}
+              aria-label="Mostrar buscador"
+            >
+              <i className="bi bi-search" />
+            </button>
           )}
         </div>
+
+
+
 
         {/* Menú derecha */}
         <div>
