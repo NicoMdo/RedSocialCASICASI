@@ -1,15 +1,17 @@
 import { useContext, useEffect, useState } from "react";
 import { UserContext } from '../contexts/UserContext';
 import BoxPost from "../components/BoxPost";
+import { Link } from "react-router-dom";
+
 
 const Profile = () => {
   const { user } = useContext(UserContext);
   const [posts, setPosts] = useState([]);
 
   const fetchPosts = async () => {
-    const res = await fetch(`http://localhost:3003/post?userId=${user._id}`);
+    const res = await fetch(`http://localhost:3003/post?userId=${user._id}&limit=1000`);
     const data = await res.json();
-    setPosts(data.posts);  // <-- acá accedemos al array posts
+    setPosts(data.posts);
   };
 
 
@@ -27,6 +29,11 @@ const Profile = () => {
         posts={userPosts}
         onDelete={(id) => setPosts(posts.filter(p => p._id !== id))}
       />
+      <div className="mt-3">
+        <Link to="/new-post" className="btn btn-secondary">
+          Crear posteo
+        </Link>
+      </div>
     </div>
   );
 };
