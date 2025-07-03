@@ -1,0 +1,124 @@
+.tag-item {
+    display: inline-flex;
+    align-items: center;
+    background-color: #6f42c1;
+    color: white;
+    padding: 4px 10px;
+    border-radius: 9999px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: default;
+    user-select: none;
+}
+
+.tag-item span {
+    pointer-events: none;
+}
+
+.tag-remove-btn {
+    background: transparent;
+    border: none;
+    color: white;
+    margin-left: 6px;
+    font-weight: bold;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    font-size: 1rem;
+    padding: 0;
+}
+
+.tag-item:hover .tag-remove-btn {
+    opacity: 1;
+}
+
+.tag-remove-btn:hover {
+    color: #ff6b6b;
+}
+
+.tag-input:focus {
+    box-shadow: none;
+    outline: none;
+}
+
+
+
+
+.iconUser {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    background-color: #6f42c1;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 1rem;
+    user-select: none;
+    text-transform: uppercase
+}
+
+.userBold {
+    font-weight: bold
+}
+
+.form-control .tag-input {
+    max-width: 130;
+    border-radius: 999px;
+    border: 1px solid #ccc;
+    font-size: 0.8rem
+}
+
+.btn .btn-primary {
+    padding: 0.3rem 0.3rem;
+    font-weight: bold;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center
+}
+
+.nameIconUser {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background-color: #6f42c1;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 0.8rem;
+    text-transform: uppercase
+}
+
+.divisorNameComment {
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 0.2rem
+}
+
+.post-image {
+    max-width: 220px;
+    max-height: 220px;
+    object-fit: cover;
+    border-radius: 8px
+}
+
+
+.fontNoHayTags {
+    font-style: italic
+}
+
+.divisorTagDescription {
+    border-top: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+    padding: 0.5rem 0
+}
+
+.divisionDescriptionUser {
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 0.5rem
+}
