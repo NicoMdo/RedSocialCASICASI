@@ -3,6 +3,7 @@ import { useState, useContext } from 'react'
 import { Link, useNavigate } from "react-router-dom";
 import { UserContext } from '../contexts/UserContext'
 import logo from "../assets/UNAHUR AntiSocial Net.png"
+import '../styles/Login.css'
 
 function Login() {
   const { setUser } = useContext(UserContext)
@@ -15,23 +16,21 @@ function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault()
 
-   
+
     try {
       const res = await fetch('http://localhost:3003/user') // Ruta según API local
       const users = await res.json()
 
-      const foundUser = users.find((u) => u.nickName === nickName)
-      
+      const foundUser = users.find((u) => u.nickName === nickName.trim())
+
       if (!foundUser) {
         setError('Usuario no encontrado.')
         return
       }
       if (password !== foundUser.password) {
-            setError('Contraseña incorrecta.')
-            return
-          } 
-      
-      
+        setError('Contraseña incorrecta.')
+        return
+      }
 
       setUser(foundUser) // Guarda en el contexto
       navigate(`/profile`) // Redirige al Home
@@ -44,8 +43,8 @@ function Login() {
 
   return (
     <div className="container d-flex align-items-center justify-content-center min-vh-100 bg-light">
-      <div className="card p-4 shadow" style={{ width: '100%', maxWidth: '400px', backgroundColor: 'white' }}>
-        <img src={logo} alt="Logo de red antisocial UNAHUR"/>
+      <div className="card p-4 shadow login-unahur" >
+        <img src={logo} alt="Logo de red antisocial UNAHUR" />
         <h2 className="mb-4 text-center">Iniciar Sesión</h2>
         <form onSubmit={handleSubmit}>
           <div className="mb-3">
@@ -54,7 +53,7 @@ function Login() {
               type="text"
               className="form-control custom-input"
               value={nickName}
-              onChange={(e) => setNickName(e.target.value)}
+              onChange={(e) => setNickName(e.target.value.trimStart())}
               required
             />
           </div>
@@ -72,11 +71,12 @@ function Login() {
 
           {error && <p className="text-danger">{error}</p>}
 
-          <button type="submit" className="btn btn-primary w-100" style={{ backgroundColor: '#6f42c1', borderColor: '#6f42c1' }}>
+          <button type="submit" className="btn btn-primary w-100 btn-ingresar" >
             Ingresar
           </button>
-          
-          <Link to='/register'>¿No sos usuario? Registrate</Link>
+
+          <Link to='/register'>¿No sos usuario? Registrate</Link> <br></br>
+          <Link to='/'>Volver al inicio</Link>
         </form>
       </div>
     </div>

@@ -159,7 +159,7 @@ const PostDetails = () => {
 
   const handleRemoveTag = async (tagId) => {
     try {
-      const res = await fetch(`http://localhost:3003/tag/${tagId}/unassign`, {
+      const res = await fetch(`http://localhost:3003/tag/${tagId}/remove`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ postId: post._id }),
@@ -169,13 +169,14 @@ const PostDetails = () => {
 
       setPost(prev => ({
         ...prev,
-        tags: prev.tags.filter(t => t._id !== tagId)
+        tags: prev.tags.filter(t => String(t._id) !== String(tagId)) // 🔧 fix acá
       }));
     } catch (err) {
       console.error("Error quitando el tag:", err);
       alert("Error al quitar el tag");
     }
   };
+
 
   const puedeEditarComentario = (comment) => {
     const cincoMin = 5 * 60 * 1000;

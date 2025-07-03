@@ -1,5 +1,3 @@
-// src/components/Tag.jsx
-
 const Tag = ({ tag }) => {
   return (
     <span

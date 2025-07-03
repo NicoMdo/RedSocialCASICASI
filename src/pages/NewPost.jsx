@@ -1,6 +1,7 @@
 import { useContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from '../contexts/UserContext';
+import "../styles/NewPost.css"
 
 const NewPost = () => {
   const [description, setDescription] = useState("");
@@ -54,7 +55,7 @@ const NewPost = () => {
       }
       if (videoId) {
         setEmbedPreview(
-          <iframe
+          <iframe className='YouTube-preview'
             width="100%"
             height="315"
             src={`https://www.youtube.com/embed/${videoId}`}
@@ -62,7 +63,6 @@ const NewPost = () => {
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen
             title="YouTube preview"
-            style={{ marginTop: "10px", borderRadius: "8px" }}
           ></iframe>
         );
       }
@@ -85,38 +85,17 @@ const NewPost = () => {
       formData.append("user", user._id);
       images.forEach(image => formData.append("images", image));
 
+      // 🚀 Enviamos los tags como array JSON (aunque sea uno)
+      if (tagName.trim()) {
+        formData.append("tags", JSON.stringify([tagName.trim()]));
+      }
+
       const resPost = await fetch("http://localhost:3003/post", {
         method: "POST",
         body: formData,
       });
 
       if (!resPost.ok) throw new Error("No se pudo crear el post");
-      const postCreado = await resPost.json();
-
-      if (tagName.trim()) {
-        const resTag = await fetch("http://localhost:3003/tag", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ name: tagName.trim() }),
-        });
-
-        let tag;
-        if (resTag.ok) {
-          tag = await resTag.json();
-        } else {
-          const allTagsRes = await fetch("http://localhost:3003/tag");
-          const allTags = await allTagsRes.json();
-          tag = allTags.find(t => t.name.toLowerCase() === tagName.trim().toLowerCase());
-        }
-
-        if (tag) {
-          await fetch(`http://localhost:3003/tag/${tag._id}/assign`, {
-            method: "PUT",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ postId: postCreado._id }),
-          });
-        }
-      }
 
       alert("Post creado con éxito");
       navigate("/profile");
@@ -126,6 +105,7 @@ const NewPost = () => {
       alert("Error en el servidor");
     }
   };
+
 
   return (
     <div className="container mt-5">
@@ -171,30 +151,8 @@ const NewPost = () => {
             <div className="d-flex flex-wrap gap-3">
               {imagePreviews.map((img, i) => (
                 <div key={i} style={{ position: "relative", display: "inline-block" }}>
-                  <img
-                    src={img.previewUrl}
-                    alt={`preview-${i}`}
-                    style={{ width: "120px", height: "auto", borderRadius: "8px", objectFit: "cover" }}
-                  />
-                  <button
-                    type="button"
-                    onClick={() => removeImage(i)}
-                    style={{
-                      position: "absolute",
-                      top: 0,
-                      right: 0,
-                      background: "rgba(0,0,0,0.7)",
-                      color: "white",
-                      border: "none",
-                      borderRadius: "50%",
-                      width: "24px",
-                      height: "24px",
-                      lineHeight: "24px",
-                      textAlign: "center",
-                      cursor: "pointer",
-                      fontSize: "14px"
-                    }}
-                  >
+                  <img className='image-preview' src={img.previewUrl} alt={`preview-${i}`}/>
+                  <button type="button" onClick={() => removeImage(i)} className='remove-image'>
                     ×
                   </button>
                 </div>
@@ -203,11 +161,7 @@ const NewPost = () => {
           </div>
         )}
 
-        <button
-          type="submit"
-          className="btn btn-success"
-          style={{ backgroundColor: '#6f42c1', borderColor: '#6f42c1' }}
-        >
+        <button type="submit" className="btn btn-success">
           Publicar
         </button>
       </form>

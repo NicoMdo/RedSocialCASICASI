@@ -1,0 +1,32 @@
+.remove-image {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: rgba(0,0,0,0.7);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    line-height: 24px;
+    text-align: center;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.btn .btn-success {
+    background-color: #6f42c1;
+    border-color: #6f42c1; 
+}
+
+.image-preview {
+    width: 120px; 
+    height: auto; 
+    border-radius: 8px; 
+    object-fit: cover; 
+}
+
+.YouTube-preview {    
+    margin-top: 10px; 
+    border-radius: 8px 
+}

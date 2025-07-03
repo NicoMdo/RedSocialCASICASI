@@ -155,6 +155,21 @@ const BoxPost = ({ posts, onDelete, lastPostRef }) => {
                                 <MediaRenderer text={post.description} />
                             </div>
 
+                            {post.tags?.length > 0 && (
+                                <div className="d-flex flex-wrap align-items-center gap-2 mb-2">
+                                    {post.tags.map(tag => (
+                                        <span
+                                            key={tag._id}
+                                            className="badge bg-secondary"
+                                            title={`Tag: ${tag.name}`}
+                                        >
+                                            #{tag.name}
+                                        </span>
+                                    ))}
+                                </div>
+                            )}
+
+
                             <PostImages images={post.images} />
 
                             <p>Comentarios: {localCommentCounts[post._id] ?? 0}</p>
